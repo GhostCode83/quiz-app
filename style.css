@@ -1,12 +1,14 @@
 * {
     color: #32050e;
     background-color: #d5d5d5;
-    
 }
 
 
 .welcome {
     text-align: center;
+}
+img {
+    width: 75%;
 }
 
 .welcome > img {
@@ -16,6 +18,13 @@
     width: 50%;
 }
 
+.score {
+    font-size: 40px;
+    margin-left: 20px;}
+
+button  {
+    margin-top: 10px;
+}
 
 form {
     margin: 5px;
@@ -37,29 +46,62 @@ h3 {
     font-size: 32px;
 }
 
-p, label, input {
-    font-size: 20px;
+p, label, input, button{
+    font-size: 17px;
     font-family: "roboto condensed", sans-serif;
 }
 
-.quiz-container {
-    display: inline-flex;
+.group {
+    display: flex;
     flex-direction: column;
+
 }
 
 .item {
     flex: 1;
-    padding: 0 15px 0 0;
+    padding: auto;
+    margin: auto;
 }
 
-@media all and (min-width: 800px) {
 
+
+
+@media all and (min-width: 800px) {
+    
     h1 {
-      padding: 0 10%;
+        padding: 0 10%;
     }
-  
-    .quiz-container {
-      flex-direction: row;
+    
+    .group {
+        flex-direction: row;
     }
-  
+    
+    .item {
+        margin: 5px;
+        
+    }
+
+    .item-2 {
+        flex: 2;
+    }
+
+    .align {
+        align-self: center;
+    }
+
+    img {
+        width: 100%;
+    }
+
+    .welcome > img  {
+        width: 30%;
+    }
+    button  {
+        margin-top: 50px;
+    }
+
+    .score {
+        font-size: 50px;
+        margin-left: 50px;}
+
   }
