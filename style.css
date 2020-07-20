@@ -1,12 +1,65 @@
-.start {
+* {
+    color: #32050e;
+    background-color: #d5d5d5;
+    
 }
 
-.quiz {
 
+.welcome {
+    text-align: center;
 }
 
-.results {
+.welcome > img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
 }
 
-.answered {
+
+form {
+    margin: 5px;
 }
+
+h1 {
+    font-family:  "Courgette", cursive;
+    font-size: 60px;
+}
+
+h2 {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 40px;
+}
+
+h3 {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    margin-top: 30px;
+    font-size: 32px;
+}
+
+p, label, input {
+    font-size: 20px;
+    font-family: "roboto condensed", sans-serif;
+}
+
+.quiz-container {
+    display: inline-flex;
+    flex-direction: column;
+}
+
+.item {
+    flex: 1;
+    padding: 0 15px 0 0;
+}
+
+@media all and (min-width: 800px) {
+
+    h1 {
+      padding: 0 10%;
+    }
+  
+    .quiz-container {
+      flex-direction: row;
+    }
+  
+  }
