@@ -186,7 +186,7 @@ function renderResultsPage() {
 /*----------------- functions that initiate the above render functions -------------------*/
 
 function begin() {
-  $('.js-quiz-container').html(renderStartPage())
+  $( '.js-quiz-container' ).html(renderStartPage())
   startQuizQuestions();
 }
 
@@ -242,4 +242,6 @@ function nextQuestion() {
   }
 }
 
-begin();
+$(document).ready(function() {
+  begin();
+})
