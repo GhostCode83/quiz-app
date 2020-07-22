@@ -63,8 +63,8 @@ const STORE = [
   }
 ]
 
-let score = 3;
-let currentQuestion = 4;
+let score = 0;
+let currentQuestion = 0;
 
 
 /*------- functions with content to be rendered in the DOM --------*/
