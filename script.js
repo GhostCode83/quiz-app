@@ -63,13 +63,12 @@ const STORE = [
   }
 ]
 
-let score = 0;
-let currentQuestion = 0;
-let attempts = 0;
+let score = 3;
+let currentQuestion = 4;
 
 
-/*------- functions with content to be displayed in the DOM --------*/
-function displayStartPage() {
+/*------- functions with content to be rendered in the DOM --------*/
+function renderStartPage() {
   // event.preventDefault()
   return `<form class="js-quiz-form welcome">
             <h1>Punisher Trivia Quiz</h1>
@@ -80,7 +79,7 @@ function displayStartPage() {
           </form>`
 }
 
-function displayQuestionPage() {
+function renderQuestionPage() {
   //loads a multiple choice question with a submit button
   if (currentQuestion < STORE.length) {
     return `<form class="question js-question"> 
@@ -117,8 +116,8 @@ function displayQuestionPage() {
   }
 }
 
-function displayFeedbackPage() {
-  //displays a page that gives users feedback on how they did.
+function renderFeedbackPage() {
+  //renders a page that gives users feedback on how they did.
   if (STORE[currentQuestion].correct) {
     return `<form class="js-feedback-page"> 
     <h2>That's right!</h2>
@@ -150,15 +149,21 @@ function displayFeedbackPage() {
   }
 }
 
-function displayResultsPage() {
+function renderResultsPage() {
   //shows users their total score once they have answered all the questions and received feedback, and gives opportunity to play again.
   if (score / STORE.length >= .75) {
     return `<form class="js-results-page">
     <h2>Results</h2>
-    <h3>Good Job!</h3>
-    <p>You scored: ${score} / ${STORE.length} </p>                
-    <img src="images/last-page/frank-and-amy-happy.jpg" alt="frank-and-amy-happy-at-storefront" width="500">
-    <input type="submit" value="try again">
+    <section class="group">
+      <div class="item">
+        <img src="images/last-page/frank-and-amy-happy.jpg" alt="frank-and-amy-happy-at-storefront" width="500">
+      </div>
+      <div class="item">
+        <h3>Good Job!</h3>
+        <p>You scored: ${score} / ${STORE.length} </p>                
+        <input type="submit" value="try again">
+      </div>
+    </section>
     </form>`
   } else {
     return `<form class="js-results-page">
@@ -178,19 +183,20 @@ function displayResultsPage() {
 }
 
 
-/*----------------- functions that initiate the above display pages -------------------*/
+/*----------------- functions that initiate the above render functions -------------------*/
 
 function begin() {
-  //initiates the start page.
-  if (attempts < 1) {
-    $('.js-quiz-container').html(displayStartPage())
-    startQuizQuestions();
-  } else {
-    $('.js-results-page').on('submit', function (event) {
-      event.preventDefault();
-      $('.js-quiz-container').html( displayStartPage() )
-    })
-  }
+  $('.js-quiz-container').html(renderStartPage())
+  startQuizQuestions();
+}
+
+function restart() {
+  score = 0;
+  currentQuestion = 0;
+  $('.js-results-page').on('submit', function (event) {
+    event.preventDefault();
+    $('.js-quiz-container').html(renderStartPage())
+  })
 }
 
 function startQuizQuestions() {
@@ -198,7 +204,7 @@ function startQuizQuestions() {
   $('.js-quiz-form').on('submit', function (event) {
     event.preventDefault();
 
-    $('.js-quiz-container').html( displayQuestionPage() )
+    $('.js-quiz-container').html(renderQuestionPage())
     evaluateAnswer();
   });
 }
@@ -214,7 +220,7 @@ function evaluateAnswer() {
       STORE[currentQuestion].correct = false;
       event.preventDefault();
     }
-    $('.js-quiz-container').html( displayFeedbackPage() );
+    $('.js-quiz-container').html(renderFeedbackPage());
     currentQuestion++;
     nextQuestion();
   });
@@ -225,13 +231,13 @@ function nextQuestion() {
   if (currentQuestion < STORE.length) {
     $('.js-feedback-page').on('submit', function (event) {
       event.preventDefault();
-      $('.js-quiz-container').html( displayQuestionPage() )
+      $('.js-quiz-container').html(renderQuestionPage())
       evaluateAnswer();
     })
   } else {
     $('.js-feedback-page').on('submit', function (event) {
       event.preventDefault();
-      $('.js-quiz-container').html( displayResultsPage() )
+      $('.js-quiz-container').html(renderResultsPage())
     })
   }
 }
