@@ -187,31 +187,29 @@ function renderResultsPage() {
 
 function begin() {
   $( '.js-quiz-container' ).html(renderStartPage())
-  startQuizQuestions();
 }
 
 function restart() {
-  score = 0;
-  currentQuestion = 0;
-  $('.js-results-page').on('submit', function (event) {
+  $('.js-quiz-container').on('submit', '.js-results-page', function (event) {
     event.preventDefault();
-    $('.js-quiz-container').html(renderStartPage())
+    score = 0;
+    currentQuestion = 0;
+    $('.js-quiz-container').html(renderQuestionPage())
   })
 }
 
 function startQuizQuestions() {
   //starts quiz by bringing user to the first question
-  $('.js-quiz-form').on('submit', function (event) {
+  $('.js-quiz-container').on('submit', '.js-quiz-form', function (event) {
     event.preventDefault();
 
     $('.js-quiz-container').html(renderQuestionPage())
-    evaluateAnswer();
   });
 }
 
 function evaluateAnswer() {
   //evaluates the answer submitted by user as either right or wrong.
-  $('.js-question').on('submit', function (event) {
+  $('.js-quiz-container').on('submit', '.js-question', function (event) {
     event.preventDefault();
     if (parseInt($('input[name=option]:checked').val()) === STORE[currentQuestion].answer) {
       score++;
@@ -222,26 +220,28 @@ function evaluateAnswer() {
     }
     $('.js-quiz-container').html(renderFeedbackPage());
     currentQuestion++;
-    nextQuestion();
   });
 };
 
 function nextQuestion() {
   //goes to the next question if there are more questions, if not, goes to the results page.
-  if (currentQuestion < STORE.length) {
-    $('.js-feedback-page').on('submit', function (event) {
+    $('.js-quiz-container').on('submit', '.js-feedback-page', function (event) {
       event.preventDefault();
+
+     if (currentQuestion < STORE.length) {
       $('.js-quiz-container').html(renderQuestionPage())
-      evaluateAnswer();
-    })
   } else {
-    $('.js-feedback-page').on('submit', function (event) {
-      event.preventDefault();
       $('.js-quiz-container').html(renderResultsPage())
-    })
-  }
+    }
+  })
 }
 
-$(document).ready(function() {
+function init(){
   begin();
-})
+  restart();
+  startQuizQuestions();
+  evaluateAnswer();
+  nextQuestion();
+}
+
+$( init );
