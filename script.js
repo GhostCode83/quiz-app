@@ -116,6 +116,15 @@ function renderQuestionPage() {
   }
 }
 
+function renderNexQuestion() {
+  if (currentQuestion < STORE.length) {
+    $('.js-quiz-container').html(renderQuestionPage())
+} else {
+    $('.js-quiz-container').html(renderResultsPage())
+}
+}
+
+
 function renderFeedbackPage() {
   //renders a page that gives users feedback on how they did.
   if (STORE[currentQuestion].correct) {
@@ -227,12 +236,12 @@ function nextQuestion() {
   //goes to the next question if there are more questions, if not, goes to the results page.
     $('.js-quiz-container').on('submit', '.js-feedback-page', function (event) {
       event.preventDefault();
-
-     if (currentQuestion < STORE.length) {
+      renderNexQuestion()
+   /*  if (currentQuestion < STORE.length) {
       $('.js-quiz-container').html(renderQuestionPage())
   } else {
       $('.js-quiz-container').html(renderResultsPage())
-    }
+    }*/
   })
 }
 
